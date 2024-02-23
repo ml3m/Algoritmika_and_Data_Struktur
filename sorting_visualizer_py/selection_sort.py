@@ -1,51 +1,12 @@
-import pygame
-import random
+def selection_sort(draw_info, ascending=True):
+	lst = draw_info.lst
 
-# Initializing PyGame
-pygame.init()
+	for i in range(len(lst)):
+		min_index = i
 
-# Set up the window
-win_width = 1280
-win_height = 720
-win = pygame.display.set_mode((win_width, win_height))
-pygame.display.set_caption("Selection Sort Visualizer GeekforGeeks")
-win.fill((0, 0, 0))
-
-# Generating random array
-arr_len = 50
-arr = [random.randint(1, win_height) for i in range(arr_len)]
-
-# Initializing sorted and unsorted parts of array
-sorted_idx = -1
-unsorted_idx = 0
-
-# Selection sort loop
-while sorted_idx < arr_len - 1:
-	min_idx = unsorted_idx
-	for i in range(unsorted_idx, arr_len):
-		if arr[i] < arr[min_idx]:
-			min_idx = i
-	arr[unsorted_idx], arr[min_idx] = arr[min_idx], arr[unsorted_idx]
-	sorted_idx = unsorted_idx
-	unsorted_idx += 1
-
-	# Drawing bars
-	delay = 100 # Change the value to adjust the delay in milliseconds
-	win.fill((0, 0, 0))
-	for i in range(arr_len):
-		color = (255, 255, 255) if i <= sorted_idx else (0, 255, 0)
-		pygame.draw.rect(win, color, (i * (win_width / arr_len),
-						win_height - arr[i], win_width / arr_len, arr[i]))
-	pygame.display.update()
-	pygame.time.wait(delay)
-
-# Event handling loop
-running = True
-while running:
-	for event in pygame.event.get():
-		if event.type == pygame.QUIT:
-			running = False
-
-# Quit PyGame
-pygame.quit()
-
+		for j in range(i + 1, len(lst)):
+			if (lst[j] < lst[min_index] and ascending) or (lst[j] > lst[min_index] and not ascending):
+				min_index = j
+		lst[i], lst[min_index] = lst[min_index], lst[i]
+		draw_list(draw_info, {i: draw_info.GREEN, min_index: draw_info.RED}, True)
+		yield True
