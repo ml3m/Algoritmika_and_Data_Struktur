@@ -11,6 +11,8 @@ struct LinkedList {
 	int size;
 };
 
+ceva = 0;
+
 struct Node* createNode(int data) {
 	/*
 		Creates a new node with the provided data.
